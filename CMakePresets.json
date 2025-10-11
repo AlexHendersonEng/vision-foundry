@@ -123,6 +123,20 @@
     
   ],
   "workflowPresets": [
-    
+    {
+      "name": "docs",
+      "displayName": "Docs",
+      "description": "Builds documentation.",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "docs"
+        },
+        {
+          "type": "build",
+          "name": "docs"
+        }
+      ]
+    }
   ]
 }
