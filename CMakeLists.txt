@@ -1,0 +1,83 @@
+﻿# Set minimum CMake version
+cmake_minimum_required (VERSION 3.10)
+
+# Check platform
+if(NOT WIN32 AND NOT UNIX)
+    message(FATAL_ERROR "Platform not supported!")
+endif()
+
+# Options
+option(BUILD_DOCS "Build documentation with Doxygen" NO)
+
+# Variables
+set(THIRD_PARTY_DIR "${CMAKE_SOURCE_DIR}/third-party")
+
+# Include cmake utils
+include("cmake/utils.cmake")
+
+# Enable Hot Reload for MSVC compilers if supported.
+if(POLICY CMP0141)
+    cmake_policy(SET CMP0141 NEW)
+    set(CMAKE_MSVC_DEBUG_INFORMATION_FORMAT "$<IF:$<AND:$<C_COMPILER_ID:MSVC>,$<CXX_COMPILER_ID:MSVC>>,$<$<CONFIG:Debug,RelWithDebInfo>:EditAndContinue>,$<$<CONFIG:Debug,RelWithDebInfo>:ProgramDatabase>>")
+endif()
+
+# Project metadata
+project("vision-foundry")
+
+# Include sub-projects.
+add_subdirectory("src")
+
+# If documentation is to be built
+if(BUILD_DOCS)
+    # Define variables
+    set(DOXYGEN_VERSION 1.14.0)
+    set(DOXYGEN_DIR "${THIRD_PARTY_DIR}/doxygen")
+    set(DOCS_DIR "${CMAKE_SOURCE_DIR}/docs")
+    set(DOCS_BUILD_DIR "${CMAKE_CURRENT_BINARY_DIR}/docs")
+
+    # Define platform specific Doxygen variables
+    if(WIN32)
+        set(DOXYGEN_ARCHIVE "doxygen-${DOXYGEN_VERSION}.windows.x64.bin.zip")
+        set(DOXYGEN_URL "https://www.doxygen.nl/files/${DOXYGEN_ARCHIVE}")
+        set(DOXYGEN_EXECUTABLE "doxygen.exe")
+    elseif(UNIX)
+        set(DOXYGEN_ARCHIVE "doxygen-${DOXYGEN_VERSION}.linux.bin.tar.gz")
+        set(DOXYGEN_URL "https://www.doxygen.nl/files/doxygen-${DOXYGEN_VERSION}.linux.bin.tar.gz")
+        set(DOXYGEN_EXECUTABLE "doxygen")
+    endif()
+
+    # Create Doxygen directory if required
+    if(NOT EXISTS "${DOXYGEN_DIR}")
+        message(STATUS "Doxygen directory not found. Creating '${DOXYGEN_DIR}'.")
+        file(MAKE_DIRECTORY "${DOXYGEN_DIR}")
+    endif()
+
+    # Download and extract Doxygen if required
+    if(NOT EXISTS "${DOXYGEN_DIR}/${DOXYGEN_EXECUTABLE}")
+        file(WRITE "${DOXYGEN_DIR}/.gitignore" "*")
+
+        message(STATUS "Doxygen executable not found. Downloading doxygen from '${DOXYGEN_URL}' to '${DOXYGEN_DIR}/${DOXYGEN_ARCHIVE}'.")
+        file(DOWNLOAD "${DOXYGEN_URL}" "${DOXYGEN_DIR}/${DOXYGEN_ARCHIVE}" SHOW_PROGRESS)
+
+        message(STATUS "Extracting '${DOXYGEN_DIR}/${DOXYGEN_ARCHIVE}' to '${DOXYGEN_DIR}'.")
+        file(ARCHIVE_EXTRACT INPUT "${DOXYGEN_DIR}/${DOXYGEN_ARCHIVE}" DESTINATION "${DOXYGEN_DIR}")
+
+        file(REMOVE "${DOXYGEN_DIR}/${DOXYGEN_ARCHIVE}")
+    endif()
+
+    # Make docs directory in build directory
+    file(MAKE_DIRECTORY "${DOCS_BUILD_DIR}")
+
+    # Configure Doxyfile
+    set(DOXYFILE_IN "Doxyfile.in")
+    set(DOXYFILE_OUT "Doxyfile")
+    configure_file("${DOCS_DIR}/${DOXYFILE_IN}" "${DOCS_BUILD_DIR}/${DOXYFILE_OUT}")
+
+    # Add documentation target
+    add_custom_target(
+        docs
+        COMMAND "${DOXYGEN_DIR}/${DOXYGEN_EXECUTABLE}" "${DOCS_BUILD_DIR}/${DOXYFILE_OUT}"
+        WORKING_DIRECTORY "${DOCS_BUILD_DIR}"
+        VERBATIM
+    )
+endif()
