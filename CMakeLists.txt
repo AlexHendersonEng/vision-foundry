@@ -11,6 +11,7 @@ option(BUILD_DOCS "Build documentation with Doxygen" NO)
 
 # Variables
 set(THIRD_PARTY_DIR "${CMAKE_SOURCE_DIR}/third-party")
+set(VCPKG_DIR "${THIRD_PARTY_DIR}/vcpkg")
 
 # Include cmake utils
 include("cmake/utils.cmake")
@@ -21,7 +22,27 @@ if(POLICY CMP0141)
     set(CMAKE_MSVC_DEBUG_INFORMATION_FORMAT "$<IF:$<AND:$<C_COMPILER_ID:MSVC>,$<CXX_COMPILER_ID:MSVC>>,$<$<CONFIG:Debug,RelWithDebInfo>:EditAndContinue>,$<$<CONFIG:Debug,RelWithDebInfo>:ProgramDatabase>>")
 endif()
 
-# Project metadata
+# Bootstrap vcpkg if required
+if(WIN32)
+    set(VCPKG_EXE "${VCPKG_DIR}/vcpkg.exe")
+    set(BOOTSTRAP_CMD "${VCPKG_DIR}/bootstrap-vcpkg.bat")
+else()
+    set(VCPKG_EXE "${VCPKG_DIR}/vcpkg")
+    set(BOOTSTRAP_CMD "${VCPKG_DIR}/bootstrap-vcpkg.sh")
+endif()
+
+if(NOT EXISTS "${VCPKG_EXE}")
+    message(STATUS "Bootstrapping vcpkg...")
+    execute_process(
+        COMMAND "${BOOTSTRAP_CMD}"
+        WORKING_DIRECTORY "${VCPKG_DIR}"
+    )
+endif()
+
+# Add vcpkg as CMake toolchain file
+set(CMAKE_TOOLCHAIN_FILE "${VCPKG_DIR}/scripts/buildsystems/vcpkg.cmake")
+
+# Project
 project("vision-foundry")
 
 # Include sub-projects.
@@ -40,7 +61,7 @@ if(BUILD_DOCS)
         set(DOXYGEN_ARCHIVE "doxygen-${DOXYGEN_VERSION}.windows.x64.bin.zip")
         set(DOXYGEN_URL "https://www.doxygen.nl/files/${DOXYGEN_ARCHIVE}")
         set(DOXYGEN_EXECUTABLE "doxygen.exe")
-    elseif(UNIX)
+    else()
         set(DOXYGEN_ARCHIVE "doxygen-${DOXYGEN_VERSION}.linux.bin.tar.gz")
         set(DOXYGEN_URL "https://www.doxygen.nl/files/doxygen-${DOXYGEN_VERSION}.linux.bin.tar.gz")
         set(DOXYGEN_EXECUTABLE "doxygen")

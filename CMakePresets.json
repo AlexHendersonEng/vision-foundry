@@ -99,10 +99,13 @@
     },
     {
       "name": "docs",
+      "generator": "Ninja",
       "displayName": "Docs",
       "cacheVariables": {
         "BUILD_DOCS": "yes"
-      }
+      },
+      "binaryDir": "${sourceDir}/out/build/${presetName}",
+      "installDir": "${sourceDir}/out/install/${presetName}"
     }
   ],
   "buildPresets": [
