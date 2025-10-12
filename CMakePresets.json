@@ -635,7 +635,7 @@
       "steps": [
         {
           "type": "configure",
-          "name": "linux-x64-debug" 
+          "name": "linux-x64-debug"
         },
         {
           "type": "build",
@@ -811,7 +811,7 @@
           "type": "configure",
           "name": "linux-x86-release-tests"
         },
-        { 
+        {
           "type": "build",
           "name": "linux-x86-release-tests"
         },
