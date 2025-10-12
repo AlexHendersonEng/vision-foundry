@@ -8,6 +8,7 @@ endif()
 
 # Options
 option(BUILD_DOCS "Build documentation with Doxygen" NO)
+option(BUILD_TESTS "Build tests" NO)
 
 # Variables
 set(THIRD_PARTY_DIR "${CMAKE_SOURCE_DIR}/third-party")
@@ -47,6 +48,11 @@ project("vision-foundry")
 
 # Include sub-projects.
 add_subdirectory("src")
+add_subdirectory("apps")
+if(BUILD_TESTS)
+    enable_testing()
+    add_subdirectory("tests")
+endif()
 
 # If documentation is to be built
 if(BUILD_DOCS)

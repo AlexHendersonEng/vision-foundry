@@ -18,6 +18,22 @@
       }
     },
     {
+      "name": "linux-base",
+      "hidden": true,
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/out/build/${presetName}",
+      "installDir": "${sourceDir}/out/install/${presetName}",
+      "cacheVariables": {
+        "CMAKE_C_COMPILER": "gcc",
+        "CMAKE_CXX_COMPILER": "g++"
+      },
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Linux"
+      }
+    },
+    {
       "name": "x64-debug",
       "displayName": "x64 Debug",
       "inherits": "windows-base",
@@ -30,11 +46,27 @@
       }
     },
     {
+      "name": "x64-debug-tests",
+      "displayName": "x64 Debug Tests",
+      "inherits": "x64-debug",
+      "cacheVariables": {
+        "BUILD_TESTS": "YES"
+      }
+    },
+    {
       "name": "x64-release",
       "displayName": "x64 Release",
       "inherits": "x64-debug",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Release"
+      }
+    },
+    {
+      "name": "x64-release-tests",
+      "displayName": "x64 Release Tests",
+      "inherits": "x64-release",
+      "cacheVariables": {
+        "BUILD_TESTS": "YES"
       }
     },
     {
@@ -50,6 +82,14 @@
       }
     },
     {
+      "name": "x86-debug-tests",
+      "displayName": "x86 Debug Tests",
+      "inherits": "x86-debug",
+      "cacheVariables": {
+        "BUILD_TESTS": "YES"
+      }
+    },
+    {
       "name": "x86-release",
       "displayName": "x86 Release",
       "inherits": "x86-debug",
@@ -58,43 +98,87 @@
       }
     },
     {
-      "name": "linux-debug",
-      "displayName": "Linux Debug",
-      "generator": "Ninja",
-      "binaryDir": "${sourceDir}/out/build/${presetName}",
-      "installDir": "${sourceDir}/out/install/${presetName}",
+      "name": "x86-release-tests",
+      "displayName": "x86 Release Tests",
+      "inherits": "x86-release",
       "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "Debug"
-      },
-      "condition": {
-        "type": "equals",
-        "lhs": "${hostSystemName}",
-        "rhs": "Linux"
-      },
-      "vendor": {
-        "microsoft.com/VisualStudioRemoteSettings/CMake/1.0": {
-          "sourceDir": "$env{HOME}/.vs/$ms{projectDirName}"
-        }
+        "BUILD_TESTS": "YES"
       }
     },
     {
-      "name": "macos-debug",
-      "displayName": "macOS Debug",
-      "generator": "Ninja",
-      "binaryDir": "${sourceDir}/out/build/${presetName}",
-      "installDir": "${sourceDir}/out/install/${presetName}",
+      "name": "linux-x64-debug",
+      "displayName": "Linux x64 Debug",
+      "inherits": "linux-base",
+      "architecture": {
+        "value": "x64",
+        "strategy": "external"
+      },
       "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "Debug"
+        "CMAKE_BUILD_TYPE": "Debug",
+        "CMAKE_C_FLAGS": "-m64",
+        "CMAKE_CXX_FLAGS": "-m64"
+      }
+    },
+    {
+      "name": "linux-x64-debug-tests",
+      "displayName": "Linux x64 Debug Tests",
+      "inherits": "linux-x64-debug",
+      "cacheVariables": {
+        "BUILD_TESTS": "YES"
+      }
+    },
+    {
+      "name": "linux-x64-release",
+      "displayName": "Linux x64 Release",
+      "inherits": "linux-x64-debug",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release"
+      }
+    },
+    {
+      "name": "linux-x64-release-tests",
+      "displayName": "Linux x64 Release Tests",
+      "inherits": "linux-x64-release",
+      "cacheVariables": {
+        "BUILD_TESTS": "YES"
+      }
+    },
+    {
+      "name": "linux-x86-debug",
+      "displayName": "Linux x86 Debug",
+      "inherits": "linux-base",
+      "architecture": {
+        "value": "x86",
+        "strategy": "external"
       },
-      "condition": {
-        "type": "equals",
-        "lhs": "${hostSystemName}",
-        "rhs": "Darwin"
-      },
-      "vendor": {
-        "microsoft.com/VisualStudioRemoteSettings/CMake/1.0": {
-          "sourceDir": "$env{HOME}/.vs/$ms{projectDirName}"
-        }
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "CMAKE_C_FLAGS": "-m32",
+        "CMAKE_CXX_FLAGS": "-m32"
+      }
+    },
+    {
+      "name": "linux-x86-debug-tests",
+      "displayName": "Linux x86 Debug Tests",
+      "inherits": "linux-x86-debug",
+      "cacheVariables": {
+        "BUILD_TESTS": "YES"
+      }
+    },
+    {
+      "name": "linux-x86-release",
+      "displayName": "Linux x86 Release",
+      "inherits": "linux-x86-debug",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release"
+      }
+    },
+    {
+      "name": "linux-x86-release-tests",
+      "displayName": "Linux x86 Release Tests",
+      "inherits": "linux-x86-release",
+      "cacheVariables": {
+        "BUILD_TESTS": "YES"
       }
     },
     {
@@ -110,6 +194,86 @@
   ],
   "buildPresets": [
     {
+      "name": "x64-debug",
+      "displayName": "x64 Debug",
+      "configurePreset": "x64-debug"
+    },
+    {
+      "name": "x64-debug-tests",
+      "displayName": "x64 Debug Tests",
+      "configurePreset": "x64-debug-tests"
+    },
+    {
+      "name": "x64-release",
+      "displayName": "x64 Release",
+      "configurePreset": "x64-release"
+    },
+    {
+      "name": "x64-release-tests",
+      "displayName": "x64 Release Tests",
+      "configurePreset": "x64-release-tests"
+    },
+    {
+      "name": "x86-debug",
+      "displayName": "x86 Debug",
+      "configurePreset": "x86-debug"
+    },
+    {
+      "name": "x86-debug-tests",
+      "displayName": "x86 Debug Tests",
+      "configurePreset": "x86-debug-tests"
+    },
+    {
+      "name": "x86-release",
+      "displayName": "x86 Release",
+      "configurePreset": "x86-release"
+    },
+    {
+      "name": "x86-release-tests",
+      "displayName": "x86 Release Tests",
+      "configurePreset": "x86-release-tests"
+    },
+    {
+      "name": "linux-x64-debug",
+      "displayName": "Linux x64 Debug",
+      "configurePreset": "linux-x64-debug"
+    },
+    {
+      "name": "linux-x64-debug-tests",
+      "displayName": "Linux x64 Debug Tests",
+      "configurePreset": "linux-x64-debug-tests"
+    },
+    {
+      "name": "linux-x64-release",
+      "displayName": "Linux x64 Release",
+      "configurePreset": "linux-x64-release"
+    },
+    {
+      "name": "linux-x64-release-tests",
+      "displayName": "Linux x64 Release Tests",
+      "configurePreset": "linux-x64-release-tests"
+    },
+    {
+      "name": "linux-x86-debug",
+      "displayName": "Linux x86 Debug",
+      "configurePreset": "linux-x86-debug"
+    },
+    {
+      "name": "linux-x86-debug-tests",
+      "displayName": "Linux x86 Debug Tests",
+      "configurePreset": "linux-x86-debug-tests"
+    },
+    {
+      "name": "linux-x86-release",
+      "displayName": "Linux x86 Release",
+      "configurePreset": "linux-x86-release"
+    },
+    {
+      "name": "linux-x86-release-tests",
+      "displayName": "Linux x86 Release Tests",
+      "configurePreset": "linux-x86-release-tests"
+    },
+    {
       "name": "docs",
       "displayName": "Docs",
       "configurePreset": "docs",
@@ -117,12 +281,342 @@
     }
   ],
   "testPresets": [
-    
+    {
+      "name": "test-base",
+      "hidden": true,
+      "output": {
+        "outputOnFailure": true
+      },
+      "execution": {
+        "noTestsAction": "error",
+        "stopOnFailure": true
+      }
+    },
+    {
+      "name": "x64-debug-tests",
+      "displayName": "x64 Debug Tests",
+      "inherits": "test-base",
+      "configurePreset": "x64-debug-tests"
+    },
+    {
+      "name": "x64-release-tests",
+      "displayName": "x64 Release Tests",
+      "inherits": "test-base",
+      "configurePreset": "x64-release-tests"
+    },
+    {
+      "name": "x86-debug-tests",
+      "displayName": "x86 Debug Tests",
+      "inherits": "test-base",
+      "configurePreset": "x86-debug-tests"
+    },
+    {
+      "name": "x86-release-tests",
+      "displayName": "x86 Release Tests",
+      "inherits": "test-base",
+      "configurePreset": "x86-release-tests"
+    },
+    {
+      "name": "linux-x64-debug-tests",
+      "displayName": "Linux x64 Debug Tests",
+      "inherits": "test-base",
+      "configurePreset": "linux-x64-debug-tests"
+    },
+    {
+      "name": "linux-x64-release-tests",
+      "displayName": "Linux x64 Release Tests",
+      "inherits": "test-base",
+      "configurePreset": "linux-x64-release-tests"
+    },
+    {
+      "name": "linux-x86-debug-tests",
+      "displayName": "Linux x86 Debug Tests",
+      "inherits": "test-base",
+      "configurePreset": "linux-x86-debug-tests"
+    },
+    {
+      "name": "linux-x86-release-tests",
+      "displayName": "Linux x86 Release Tests",
+      "inherits": "test-base",
+      "configurePreset": "linux-x86-release-tests"
+    }
   ],
   "packagePresets": [
     
   ],
   "workflowPresets": [
+    {
+      "name": "x64-debug",
+      "displayName": "x64 Debug",
+      "description": "Configure and build x64 Debug.",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "x64-debug"
+        },
+        {
+          "type": "build",
+          "name": "x64-debug"
+        }
+      ]
+    },
+    {
+      "name": "x64-debug-tests",
+      "displayName": "x64 Debug Tests",
+      "description": "Configure, build, and run x64 Debug tests.",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "x64-debug-tests"
+        },
+        {
+          "type": "build",
+          "name": "x64-debug-tests"
+        },
+        {
+          "type": "test",
+          "name": "x64-debug-tests"
+        }
+      ]
+    },
+    {
+      "name": "x64-release",
+      "displayName": "x64 Release",
+      "description": "Configure and build x64 Release.",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "x64-release"
+        },
+        {
+          "type": "build",
+          "name": "x64-release"
+        }
+      ]
+    },
+    {
+      "name": "x64-release-tests",
+      "displayName": "x64 Release Tests",
+      "description": "Configure, build, and run x64 Release tests.",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "x64-release-tests"
+        },
+        {
+          "type": "build",
+          "name": "x64-release-tests"
+        },
+        {
+          "type": "test",
+          "name": "x64-release-tests"
+        }
+      ]
+    },
+    {
+      "name": "x86-debug",
+      "displayName": "x86 Debug",
+      "description": "Configure and build x86 Debug.",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "x86-debug"
+        },
+        {
+          "type": "build",
+          "name": "x86-debug"
+        }
+      ]
+    },
+    {
+      "name": "x86-debug-tests",
+      "displayName": "x86 Debug Tests",
+      "description": "Configure, build, and run x86 Debug tests.",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "x86-debug-tests"
+        },
+        {
+          "type": "build",
+          "name": "x86-debug-tests"
+        },
+        {
+          "type": "test",
+          "name": "x86-debug-tests"
+        }
+      ]
+    },
+    {
+      "name": "x86-release",
+      "displayName": "x86 Release",
+      "description": "Configure and build x86 Release.",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "x86-release"
+        },
+        {
+          "type": "build",
+          "name": "x86-release"
+        }
+      ]
+    },
+    {
+      "name": "x86-release-tests",
+      "displayName": "x86 Release Tests",
+      "description": "Configure, build, and run x86 Release tests.",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "x86-release-tests"
+        },
+        {
+          "type": "build",
+          "name": "x86-release-tests"
+        },
+        {
+          "type": "test",
+          "name": "x86-release-tests"
+        }
+      ]
+    },
+    {
+      "name": "linux-x64-debug",
+      "displayName": "Linux x64 Debug",
+      "description": "Configure and build Linux x64 Debug.",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "linux-x64-debug" 
+        },
+        {
+          "type": "build",
+          "name": "linux-x64-debug"
+        }
+      ]
+    },
+    {
+      "name": "linux-x64-debug-tests",
+      "displayName": "Linux x64 Debug Tests",
+      "description": "Configure, build, and run Linux x64 Debug tests.",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "linux-x64-debug-tests"
+        },
+        {
+          "type": "build",
+          "name": "linux-x64-debug-tests"
+        },
+        {
+          "type": "test",
+          "name": "linux-x64-debug-tests"
+        }
+      ]
+    },
+    {
+      "name": "linux-x64-release",
+      "displayName": "Linux x64 Release",
+      "description": "Configure and build Linux x64 Release.",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "linux-x64-release"
+        },
+        {
+          "type": "build",
+          "name": "linux-x64-release"
+        }
+      ]
+    },
+    {
+      "name": "linux-x64-release-tests",
+      "displayName": "Linux x64 Release Tests",
+      "description": "Configure, build, and run Linux x64 Release tests.",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "linux-x64-release-tests"
+        },
+        {
+          "type": "build",
+          "name": "linux-x64-release-tests"
+        },
+        {
+          "type": "test",
+          "name": "linux-x64-release-tests"
+        }
+      ]
+    },
+    {
+      "name": "linux-x86-debug",
+      "displayName": "Linux x86 Debug",
+      "description": "Configure and build Linux x86 Debug.",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "linux-x86-debug"
+        },
+        {
+          "type": "build",
+          "name": "linux-x86-debug"
+        }
+      ]
+    },
+    {
+      "name": "linux-x86-debug-tests",
+      "displayName": "Linux x86 Debug Tests",
+      "description": "Configure, build, and run Linux x86 Debug tests.",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "linux-x86-debug-tests"
+        },
+        {
+          "type": "build",
+          "name":"linux-x86-debug-tests"
+        },
+        {
+          "type": "test",
+          "name": "linux-x86-debug-tests"
+        }
+      ]
+    },
+    {
+      "name": "linux-x86-release",
+      "displayName": "Linux x86 Release",
+      "description": "Configure and build Linux x86 Release.",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "linux-x86-release"
+        },
+        {
+          "type": "build",
+          "name": "linux-x86-release"
+        }
+      ]
+    },
+    {
+      "name": "linux-x86-release-tests",
+      "displayName": "Linux x86 Release Tests",
+      "description": "Configure, build, and run Linux x86 Release tests.",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "linux-x86-release-tests"
+        },
+        { 
+          "type": "build",
+          "name": "linux-x86-release-tests"
+        },
+        {
+          "type": "test",
+          "name": "linux-x86-release-tests"
+        }
+      ]
+    },
     {
       "name": "docs",
       "displayName": "Docs",
