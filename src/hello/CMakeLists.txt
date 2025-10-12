@@ -11,3 +11,6 @@ target_include_directories("${TARGET_NAME}" PUBLIC "${CMAKE_SOURCE_DIR}/include"
 if(CMAKE_VERSION VERSION_GREATER 3.12)
   set_property(TARGET "${TARGET_NAME}" PROPERTY CXX_STANDARD 20)
 endif()
+
+# Install
+install(TARGETS hello DESTINATION libs)

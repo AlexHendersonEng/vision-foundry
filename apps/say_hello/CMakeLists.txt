@@ -11,3 +11,6 @@ target_link_libraries("${TARGET_NAME}" "hello")
 if(CMAKE_VERSION VERSION_GREATER 3.12)
   set_property(TARGET "${TARGET_NAME}" PROPERTY CXX_STANDARD 20)
 endif()
+
+# Install
+install(TARGETS say_hello DESTINATION bin)

@@ -342,7 +342,78 @@
     }
   ],
   "packagePresets": [
-    
+    {
+      "name": "x64-debug",
+      "displayName": "x64 Debug",
+      "configurePreset": "x64-debug",
+      "generators": [
+        "ZIP"
+      ]
+    },
+    {
+      "name": "x64-release",
+      "displayName": "x64 Release",
+      "configurePreset": "x64-release",
+      "generators": [
+        "ZIP"
+      ]
+    },
+    {
+      "name": "x86-debug",
+      "displayName": "x86 Debug",
+      "configurePreset": "x86-debug",
+      "generators": [
+        "ZIP"
+      ]
+    },
+    {
+      "name": "x86-release",
+      "displayName": "x86 Release",
+      "configurePreset": "x86-release",
+      "generators": [
+        "ZIP"
+      ]
+    },
+    {
+      "name": "linux-x64-debug",
+      "displayName": "Linux x64 Debug",
+      "configurePreset": "linux-x64-debug",
+      "generators": [
+        "TGZ"
+      ]
+    },
+    {
+      "name": "linux-x64-release",
+      "displayName": "Linux x64 Release",
+      "configurePreset": "linux-x64-release",
+      "generators": [
+        "TGZ"
+      ]
+    },
+    {
+      "name": "linux-x86-debug",
+      "displayName": "Linux x86 Debug",
+      "configurePreset": "linux-x86-debug",
+      "generators": [
+        "TGZ"
+      ]
+    },
+    {
+      "name": "linux-x86-release",
+      "displayName": "Linux x86 Release",
+      "configurePreset": "linux-x86-release",
+      "generators": [
+        "TGZ"
+      ]
+    },
+    {
+      "name": "docs",
+      "displayName": "Docs",
+      "configurePreset": "docs",
+      "generators": [
+        "ZIP"
+      ]
+    }
   ],
   "workflowPresets": [
     {
@@ -376,6 +447,25 @@
         {
           "type": "test",
           "name": "x64-debug-tests"
+        }
+      ]
+    },
+    {
+      "name": "x64-debug-package",
+      "displayName": "x64 Debug Package",
+      "description": "Configure, build, and package x64 Debug.",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "x64-debug"
+        },
+        {
+          "type": "build",
+          "name": "x64-debug"
+        },
+        {
+          "type": "package",
+          "name": "x64-debug"
         }
       ]
     },
@@ -414,6 +504,25 @@
       ]
     },
     {
+      "name": "x64-release-package",
+      "displayName": "x64 Release Package",
+      "description": "Configure, build, and package x64 Release.",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "x64-release"
+        },
+        {
+          "type": "build",
+          "name": "x64-release"
+        },
+        {
+          "type": "package",
+          "name": "x64-release"
+        }
+      ]
+    },
+    {
       "name": "x86-debug",
       "displayName": "x86 Debug",
       "description": "Configure and build x86 Debug.",
@@ -444,6 +553,25 @@
         {
           "type": "test",
           "name": "x86-debug-tests"
+        }
+      ]
+    },
+    {
+      "name": "x86-debug-package",
+      "displayName": "x86 Debug Package",
+      "description": "Configure, build, and package x86 Debug.",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "x86-debug"
+        },
+        {
+          "type": "build",
+          "name": "x86-debug"
+        },
+        {
+          "type": "package",
+          "name": "x86-debug"
         }
       ]
     },
@@ -482,6 +610,25 @@
       ]
     },
     {
+      "name": "x86-release-package",
+      "displayName": "x86 Release Package",
+      "description": "Configure, build, and package x86 Release.",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "x86-release"
+        },
+        {
+          "type": "build",
+          "name": "x86-release"
+        },
+        {
+          "type": "package",
+          "name": "x86-release"
+        }
+      ]
+    },
+    {
       "name": "linux-x64-debug",
       "displayName": "Linux x64 Debug",
       "description": "Configure and build Linux x64 Debug.",
@@ -512,6 +659,25 @@
         {
           "type": "test",
           "name": "linux-x64-debug-tests"
+        }
+      ]
+    },
+    {
+      "name": "linux-x64-debug-package",
+      "displayName": "Linux x64 Debug Package",
+      "description": "Configure, build, and package Linux x64 Debug.",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "linux-x64-debug"
+        },
+        {
+          "type": "build",
+          "name": "linux-x64-debug"
+        },
+        {
+          "type": "package",
+          "name": "linux-x64-debug"
         }
       ]
     },
@@ -550,6 +716,25 @@
       ]
     },
     {
+      "name": "linux-x64-release-package",
+      "displayName": "Linux x64 Release Package",
+      "description": "Configure, build, and package Linux x64 Release.",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "linux-x64-release"
+        },
+        {
+          "type": "build",
+          "name": "linux-x64-release"
+        },
+        {
+          "type": "package",
+          "name": "linux-x64-release"
+        }
+      ]
+    },
+    {
       "name": "linux-x86-debug",
       "displayName": "Linux x86 Debug",
       "description": "Configure and build Linux x86 Debug.",
@@ -580,6 +765,25 @@
         {
           "type": "test",
           "name": "linux-x86-debug-tests"
+        }
+      ]
+    },
+    {
+      "name": "linux-x86-debug-package",
+      "displayName": "Linux x86 Debug Package",
+      "description": "Configure, build, and package Linux x86 Debug.",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "linux-x86-debug"
+        },
+        {
+          "type": "build",
+          "name": "linux-x86-debug"
+        },
+        {
+          "type": "package",
+          "name": "linux-x86-debug"
         }
       ]
     },
@@ -618,9 +822,28 @@
       ]
     },
     {
+      "name": "linux-x86-release-package",
+      "displayName": "Linux x86 Release Package",
+      "description": "Configure, build, and package Linux x86 Release.",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "linux-x86-release"
+        },
+        {
+          "type": "build",
+          "name": "linux-x86-release"
+        },
+        {
+          "type": "package",
+          "name": "linux-x86-release"
+        }
+      ]
+    },
+    {
       "name": "docs",
       "displayName": "Docs",
-      "description": "Builds documentation.",
+      "description": "Configure and builds documentation.",
       "steps": [
         {
           "type": "configure",
@@ -628,6 +851,25 @@
         },
         {
           "type": "build",
+          "name": "docs"
+        }
+      ]
+    },
+    {
+      "name": "docs-package",
+      "displayName": "Docs Package",
+      "description": "Configure, build and package documentation.",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "docs"
+        },
+        {
+          "type": "build",
+          "name": "docs"
+        },
+        {
+          "type": "package",
           "name": "docs"
         }
       ]

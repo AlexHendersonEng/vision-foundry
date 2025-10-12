@@ -14,7 +14,7 @@ option(BUILD_TESTS "Build tests" NO)
 set(THIRD_PARTY_DIR "${CMAKE_SOURCE_DIR}/third-party")
 set(VCPKG_DIR "${THIRD_PARTY_DIR}/vcpkg")
 
-# Include cmake utils
+# Includes
 include("cmake/utils.cmake")
 
 # Enable Hot Reload for MSVC compilers if supported.
@@ -47,15 +47,14 @@ set(CMAKE_TOOLCHAIN_FILE "${VCPKG_DIR}/scripts/buildsystems/vcpkg.cmake")
 project("vision-foundry")
 
 # Include sub-projects.
-add_subdirectory("src")
-add_subdirectory("apps")
-if(BUILD_TESTS)
-    enable_testing()
-    add_subdirectory("tests")
-endif()
-
-# If documentation is to be built
-if(BUILD_DOCS)
+if(NOT BUILD_DOCS)
+    add_subdirectory("src")
+    add_subdirectory("apps")
+    if(BUILD_TESTS)
+        enable_testing()
+        add_subdirectory("tests")
+    endif()
+else()
     # Define variables
     set(DOXYGEN_VERSION 1.14.0)
     set(DOXYGEN_DIR "${THIRD_PARTY_DIR}/doxygen")
@@ -107,4 +106,10 @@ if(BUILD_DOCS)
         WORKING_DIRECTORY "${DOCS_BUILD_DIR}"
         VERBATIM
     )
+
+    # Documentation install
+    install(DIRECTORY "${DOCS_BUILD_DIR}" DESTINATION /)
 endif()
+
+# Include CPack module
+include(CPack)
