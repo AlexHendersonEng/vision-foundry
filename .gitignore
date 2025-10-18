@@ -15,3 +15,9 @@ out/
 
 # Visual Studio
 .vs/
+
+# Visual Studio Code
+.vscode/
+
+# JetBrains
+.idea/
