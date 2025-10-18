@@ -13,6 +13,7 @@ option(BUILD_TESTS "Build tests" NO)
 # Variables
 set(THIRD_PARTY_DIR "${CMAKE_SOURCE_DIR}/third-party")
 set(VCPKG_DIR "${THIRD_PARTY_DIR}/vcpkg")
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 # Includes
 include("cmake/utils.cmake")
