@@ -103,7 +103,7 @@ We recommend using `pre-commit` to run linters and formatters before committing.
 Install:
 
 ```bash
-pip install pre-commit
+uv tool install pre-commit
 pre-commit install
 ```
 
