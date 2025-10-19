@@ -1,3 +1,3 @@
 # Python
 
-Contains the python wrapper around the vision-foundry project.
+Contains Python wrapper around the vision foundry core.

@@ -1,11 +1,12 @@
 [project]
-name = "vision-foundry-py"
+name = "vision-foundry"
 version = "0.1.0"
-description = "Python wrapper around vision foundry project"
+description = "Python wrapper around vision foundry core"
 readme = "README.md"
 requires-python = ">=3.14"
-dependencies = []
+dependencies = [
+    "vision-foundry-core",
+]
 
-[build-system]
-requires = ["uv_build>=0.9.4,<0.10.0"]
-build-backend = "uv_build"
+[tool.uv.sources]
+vision-foundry-core = { path = "../cpp" }
