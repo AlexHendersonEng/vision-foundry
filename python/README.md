@@ -1,3 +1,3 @@
 # Python
 
-Contains the python API of the vision-foundry project.
+Contains the python wrapper around the vision-foundry project.
