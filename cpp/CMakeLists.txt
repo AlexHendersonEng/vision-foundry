@@ -1,5 +1,5 @@
 ﻿# Set minimum CMake version
-cmake_minimum_required (VERSION 3.10)
+cmake_minimum_required (VERSION 3.20)
 
 # Check platform
 if(NOT WIN32 AND NOT UNIX)
@@ -42,10 +42,12 @@ if(NOT EXISTS "${VCPKG_EXE}")
 endif()
 
 # Add vcpkg as CMake toolchain file
-set(CMAKE_TOOLCHAIN_FILE "${VCPKG_DIR}/scripts/buildsystems/vcpkg.cmake")
+if(EXISTS "${VCPKG_DIR}/scripts/buildsystems/vcpkg.cmake")
+    set(CMAKE_TOOLCHAIN_FILE "${VCPKG_DIR}/scripts/buildsystems/vcpkg.cmake")
+endif()
 
 # Project
-project("vision-foundry")
+project("vision-foundry" VERSION 0.1.0)
 
 # Include sub-projects.
 if(NOT BUILD_DOCS)
