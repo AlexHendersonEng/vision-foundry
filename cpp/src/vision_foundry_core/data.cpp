@@ -1,7 +1,7 @@
+#include "data/data.hpp"
+
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
-
-#include "data/data.hpp"
 
 // Trampoline class to allow Python to override virtual methods
 template <typename SampleType>
@@ -25,7 +25,7 @@ class PyDataset : public Dataset<SampleType> {
   }
 };
 
-PYBIND11_MODULE(vision_foundry, m) {
+PYBIND11_MODULE(data, m) {
   pybind11::class_<Dataset<float>, PyDataset<float>>(m, "DatasetFloat")
       .def(pybind11::init<>())
       .def("getItem", &Dataset<float>::getItem)

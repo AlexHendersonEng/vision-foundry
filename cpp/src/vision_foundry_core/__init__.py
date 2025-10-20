@@ -1,5 +1,4 @@
 from __future__ import annotations
-
-from .vision_foundry import DatasetFloat
+from .data import DatasetFloat
 
 __all__ = ["DatasetFloat"]
