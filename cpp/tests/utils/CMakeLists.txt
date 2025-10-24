@@ -1,11 +1,11 @@
 # Variables
-set(TARGET_NAME "test_data")
+set(TARGET_NAME "test_utils")
 
 # Add executable
-add_executable("${TARGET_NAME}" "test_data.cpp")
+add_executable("${TARGET_NAME}" "test_utils.cpp")
 
 # Link libraries
-target_link_libraries("${TARGET_NAME}" PRIVATE GTest::gtest_main)
+target_link_libraries("${TARGET_NAME}" PRIVATE GTest::gtest_main utils)
 
 # Add include directories
 target_include_directories("${TARGET_NAME}" PRIVATE "${CMAKE_SOURCE_DIR}/include")

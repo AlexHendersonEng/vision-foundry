@@ -760,7 +760,7 @@
         },
         {
           "type": "build",
-          "name":"linux-x86-debug-tests"
+          "name": "linux-x86-debug-tests"
         },
         {
           "type": "test",
