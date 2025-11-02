@@ -47,7 +47,11 @@ if(EXISTS "${VCPKG_DIR}/scripts/buildsystems/vcpkg.cmake")
 endif()
 
 # Project
-project("vision-foundry" VERSION 0.1.0)
+project(
+    "vision-foundry"
+    VERSION 0.1.0
+    LANGUAGES CXX CUDA
+)
 
 # Include sub-projects.
 if(NOT BUILD_DOCS)
